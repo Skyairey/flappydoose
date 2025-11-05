@@ -49,6 +49,35 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
+## Deployment
+
+### 🚀 Vercel (Recommended - Zero Config)
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+3. Click "Import Project" and select this repository
+4. Click "Deploy" - Vercel handles everything automatically!
+
+### 📄 GitHub Pages (Automated)
+
+1. **Enable GitHub Pages:**
+   - Go to your repo settings → Pages
+   - Source: "GitHub Actions"
+
+2. **Update homepage URL in package.json:**
+   - Replace `YOUR_USERNAME` with your actual GitHub username
+
+3. **Push to main branch:**
+   - The GitHub Action will automatically build and deploy
+   - Your site will be live at: `https://YOUR_USERNAME.github.io/flappydoose`
+
+### 🔧 Manual GitHub Pages Deploy (Alternative)
+
+```bash
+npm install --save-dev gh-pages
+npm run deploy
+```
+
 ### Analyzing the Bundle Size
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
