@@ -47,7 +47,7 @@ const Bird: React.FC<BirdProps> = (
   { top, rotation } // <-- Added 'rotation' prop
 ) => (
   <img
-    src="/doose.svg"
+    src={process.env.PUBLIC_URL + "/doose.svg"}
     alt="Bird"
     draggable={false}
     style={{
@@ -101,7 +101,7 @@ const CoinComponent: React.FC<CoinProps> = ({ x, y, collected }) => {
 
   return (
     <img
-      src="/dappies.svg"
+      src={process.env.PUBLIC_URL + "/dappies.svg"}
       alt="Dappies"
       style={{
         position: "absolute",
@@ -722,7 +722,7 @@ export default function App() {
                   }}
                 >
                   <img
-                    src="/dappies.svg"
+                    src={process.env.PUBLIC_URL + "/dappies.svg"}
                     alt="Dappies"
                     style={{ width: "12px", height: "12px" }}
                   />
@@ -839,7 +839,7 @@ export default function App() {
             }}
           >
             <img
-              src="/dappies.svg"
+              src={process.env.PUBLIC_URL + "/dappies.svg"}
               alt="Dappies"
               style={{ width: "24px", height: "24px",
                 
@@ -1081,7 +1081,7 @@ export default function App() {
                 }}
               >
                 <img
-                  src="/dappies.svg"
+                  src={process.env.PUBLIC_URL + "/dappies.svg"}
                   alt="Dappies"
                   style={{ width: "24px", height: "24px" }}
                 />
