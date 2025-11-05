@@ -109,14 +109,57 @@ const CoinComponent: React.FC<CoinProps> = ({ x, y, collected }) => {
         height: `${COIN_SIZE}px`,
         left: `${x}px`,
         top: `${y}px`,
-        animation: "coinSpin 2s linear infinite",
-        userSelect: "none",
+        animation: "coinSpin 1s linear infinite",
         pointerEvents: "none",
-        objectFit: "contain",
       }}
     />
   );
 };
+
+// --- Loading Bird Component ---
+const LoadingBird: React.FC = () => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "16px",
+    }}
+  >
+    <div
+      style={{
+        position: "relative",
+        animation: "birdJump 0.8s ease-in-out infinite",
+      }}
+    >
+      <img
+        src={process.env.PUBLIC_URL + "/doose.svg"}
+        alt="Loading Bird"
+        draggable={false}
+        style={{
+          width: "40px",
+          height: "40px",
+          userSelect: "none",
+          pointerEvents: "none",
+          objectFit: "contain",
+        }}
+      />
+    </div>
+    <p
+      style={{
+        color: "#9ca3af",
+        fontSize: "1rem",
+        fontWeight: "500",
+        textAlign: "center",
+        margin: 0,
+        animation: "pulse 1.5s ease-in-out infinite",
+      }}
+    >
+      Loading...
+    </p>
+  </div>
+);
 
 // --- Main App Component ---
 export default function App() {
@@ -154,6 +197,10 @@ export default function App() {
 
   // State for button hover
   const [isHovering, setIsHovering] = useState(false);
+
+  // Mobile responsiveness and leaderboard modal state
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
 
   // --- Helper function to format time ---
   const formatTime = (milliseconds: number): string => {
@@ -245,6 +292,16 @@ export default function App() {
     console.log("🎯 Leaderboard state updated:", leaderboard.length, "entries");
     console.log("🎯 Current leaderboard state:", leaderboard);
   }, [leaderboard]);
+
+  // Handle window resize for mobile responsiveness
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // --- Save score to Supabase leaderboard ---
   const saveScoreToLeaderboard = useCallback(async () => {
@@ -598,32 +655,33 @@ export default function App() {
         position: "relative",
       }}
     >
-      {/* Leaderboard - Fixed position on left */}
-      <div
-        style={{
-          position: "fixed",
-          left: "20px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          width: "250px",
-          height: `${GAME_HEIGHT}px`,
-          // Translucent background with stars
-          backgroundImage: `
-            radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
-            radial-gradient(1px 1px at 60px 80px, rgba(255, 255, 255, 0.6), transparent),
-            radial-gradient(1px 1px at 120px 40px, rgba(255, 255, 255, 0.7), transparent),
-            radial-gradient(1px 1px at 180px 90px, rgba(255, 255, 255, 0.5), transparent),
-            radial-gradient(1px 1px at 220px 20px, rgba(255, 255, 255, 0.8), transparent),
-            radial-gradient(1px 1px at 40px 140px, rgba(255, 255, 255, 0.6), transparent),
-            radial-gradient(1px 1px at 100px 180px, rgba(255, 255, 255, 0.7), transparent),
-            radial-gradient(1px 1px at 160px 220px, rgba(255, 255, 255, 0.5), transparent),
-            radial-gradient(1px 1px at 200px 160px, rgba(255, 255, 255, 0.8), transparent),
-            linear-gradient(to bottom, rgba(31, 41, 55, 0.7), rgba(55, 65, 81, 0.8))
-          `,
-          backgroundColor: "rgba(31, 41, 55, 0.6)", // Translucent dark background
-          borderRadius: "12px",
-          backdropFilter: "blur(10px)",
-          padding: "20px",
+      {/* Leaderboard - Fixed position on left (Desktop only) */}
+      {!isMobile && (
+        <div
+          style={{
+            position: "fixed",
+            left: "20px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: "250px",
+            height: `${GAME_HEIGHT}px`,
+            // Translucent background with stars
+            backgroundImage: `
+              radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+              radial-gradient(1px 1px at 60px 80px, rgba(255, 255, 255, 0.6), transparent),
+              radial-gradient(1px 1px at 120px 40px, rgba(255, 255, 255, 0.7), transparent),
+              radial-gradient(1px 1px at 180px 90px, rgba(255, 255, 255, 0.5), transparent),
+              radial-gradient(1px 1px at 220px 20px, rgba(255, 255, 255, 0.8), transparent),
+              radial-gradient(1px 1px at 40px 140px, rgba(255, 255, 255, 0.6), transparent),
+              radial-gradient(1px 1px at 100px 180px, rgba(255, 255, 255, 0.7), transparent),
+              radial-gradient(1px 1px at 160px 220px, rgba(255, 255, 255, 0.5), transparent),
+              radial-gradient(1px 1px at 200px 160px, rgba(255, 255, 255, 0.8), transparent),
+              linear-gradient(to bottom, rgba(31, 41, 55, 0.7), rgba(55, 65, 81, 0.8))
+            `,
+            backgroundColor: "rgba(31, 41, 55, 0.6)", // Translucent dark background
+            borderRadius: "12px",
+            backdropFilter: "blur(10px)",
+            padding: "20px",
           color: "white",
           overflow: "auto",
           zIndex: 10,
@@ -642,13 +700,14 @@ export default function App() {
           🏆 Leaderboard
         </h2>
         {isLoadingLeaderboard ? (
-          <p style={{ textAlign: "center", color: "#9ca3af" }}>Loading...</p>
+          <LoadingBird />
         ) : leaderboard.length === 0 ? (
           <p style={{ textAlign: "center", color: "#9ca3af" }}>
             No scores yet!
           </p>
         ) : (
-          leaderboard.map((entry, index) => {
+          <div style={{ transition: "opacity 0.2s ease" }}>
+            {leaderboard.map((entry, index) => {
             const isCurrentPlayer =
               entry.name.trim().toLowerCase() ===
               playerName.trim().toLowerCase();
@@ -733,9 +792,39 @@ export default function App() {
                 </div>
               </div>
             );
-          })
+          })}
+          </div>
         )}
       </div>
+      )}
+
+      {/* Mobile Leaderboard Button */}
+      {isMobile && (
+        <button
+          onClick={() => setShowLeaderboardModal(true)}
+          style={{
+            position: "fixed",
+            top: "20px",
+            right: "20px",
+            backgroundColor: "rgba(167, 139, 250, 0.9)", // Purple with transparency
+            color: "white",
+            border: "none",
+            borderRadius: "12px",
+            padding: "10px 16px",
+            fontSize: "0.9rem",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+            zIndex: 1000,
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+          }}
+        >
+          🏆 Leaderboard
+        </button>
+      )}
 
       {/* Centered Game Container */}
       <div
@@ -1120,6 +1209,173 @@ export default function App() {
           )}
         </div>
       </div>
+
+      {/* Mobile Leaderboard Modal */}
+      {isMobile && showLeaderboardModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            backdropFilter: "blur(4px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 2000,
+          }}
+          onClick={() => setShowLeaderboardModal(false)}
+        >
+          <div
+            style={{
+              width: "90%",
+              maxWidth: "400px",
+              maxHeight: "70vh",
+              // Translucent background with stars
+              backgroundImage: `
+                radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 60px 80px, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(1px 1px at 120px 40px, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(1px 1px at 180px 90px, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(1px 1px at 220px 20px, rgba(255, 255, 255, 0.8), transparent),
+                linear-gradient(to bottom, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.9))
+              `,
+              backgroundColor: "rgba(31, 41, 55, 0.9)",
+              borderRadius: "16px",
+              backdropFilter: "blur(15px)",
+              padding: "24px",
+              color: "white",
+              overflow: "auto",
+              boxShadow: "0 16px 64px rgba(0, 0, 0, 0.6)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "20px",
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: "1.5rem",
+                  color: "#a78bfa",
+                  margin: 0,
+                }}
+              >
+                🏆 Leaderboard
+              </h2>
+              <button
+                onClick={() => setShowLeaderboardModal(false)}
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  color: "white",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  borderRadius: "8px",
+                  padding: "8px 12px",
+                  fontSize: "0.9rem",
+                  cursor: "pointer",
+                  backdropFilter: "blur(10px)",
+                }}
+              >
+                ✕ Close
+              </button>
+            </div>
+            
+            {isLoadingLeaderboard ? (
+              <LoadingBird />
+            ) : leaderboard.length === 0 ? (
+              <p style={{ textAlign: "center", color: "#9ca3af" }}>
+                No scores yet!
+              </p>
+            ) : (
+              <div style={{ transition: "opacity 0.2s ease" }}>
+                {leaderboard.map((entry, index) => {
+                const isCurrentPlayer =
+                  entry.name.trim().toLowerCase() ===
+                  playerName.trim().toLowerCase();
+                const isFirstPlace = index === 0;
+
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      backgroundColor: isFirstPlace
+                        ? "rgba(255, 255, 255, 0.25)"
+                        : isCurrentPlayer
+                        ? "rgba(255, 255, 255, 0.15)"
+                        : "rgba(55, 65, 81, 0.6)",
+                      color: "#fff",
+                      padding: "12px",
+                      borderRadius: "12px",
+                      marginBottom: "8px",
+                      border: isFirstPlace
+                        ? "1px solid rgba(255, 255, 255, 0.3)"
+                        : isCurrentPlayer
+                        ? "1px solid rgba(255, 255, 255, 0.2)"
+                        : "1px solid rgba(75, 85, 99, 0.6)",
+                      backdropFilter: isFirstPlace
+                        ? "blur(15px) saturate(1.8)"
+                        : isCurrentPlayer
+                        ? "blur(12px) saturate(1.5)"
+                        : "blur(5px)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontWeight: "bold",
+                          color: isFirstPlace
+                            ? "#ffffff"
+                            : isCurrentPlayer
+                            ? "rgba(255, 255, 255, 0.95)"
+                            : "#ffffff",
+                        }}
+                      >
+                        #{index + 1} {entry.name}
+                      </span>
+                      <span style={{ fontSize: "0.9rem" }}>
+                        {formatTime(entry.score)}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "0.8rem",
+                        marginTop: "4px",
+                        opacity: 0.8,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
+                    >
+                      <img
+                        src={process.env.PUBLIC_URL + "/dappies.svg"}
+                        alt="Dappies"
+                        style={{ width: "12px", height: "12px" }}
+                      />
+                      {entry.dappies} •{" "}
+                      {entry.created_at
+                        ? new Date(entry.created_at).toLocaleDateString()
+                        : "Today"}
+                    </div>
+                  </div>
+                );
+              })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
