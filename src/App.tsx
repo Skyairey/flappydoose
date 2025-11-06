@@ -30,7 +30,7 @@ interface Coin {
 }
 
 // --- Constants ---
-const BIRD_SIZE = 40;
+const BIRD_SIZE = 60;
 const GAME_WIDTH = 500;
 const GAME_HEIGHT = 500;
 const GRAVITY = 6;
@@ -47,7 +47,7 @@ const Bird: React.FC<BirdProps> = (
   { top, rotation } // <-- Added 'rotation' prop
 ) => (
   <img
-    src={process.env.PUBLIC_URL + "/doose.svg"}
+    src={process.env.PUBLIC_URL + "/bird_no_bg.svg"}
     alt="Bird"
     draggable={false}
     style={{
@@ -682,120 +682,120 @@ export default function App() {
             borderRadius: "12px",
             backdropFilter: "blur(10px)",
             padding: "20px",
-          color: "white",
-          overflow: "auto",
-          zIndex: 10,
-          boxShadow:
-            "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "1.5rem",
-            marginBottom: "20px",
-            color: "#a78bfa", // Purple color instead of yellow
-            textAlign: "center",
+            color: "white",
+            overflow: "auto",
+            zIndex: 10,
+            boxShadow:
+              "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
           }}
         >
-          🏆 Leaderboard
-        </h2>
-        {isLoadingLeaderboard ? (
-          <LoadingBird />
-        ) : leaderboard.length === 0 ? (
-          <p style={{ textAlign: "center", color: "#9ca3af" }}>
-            No scores yet!
-          </p>
-        ) : (
-          <div style={{ transition: "opacity 0.2s ease" }}>
-            {leaderboard.map((entry, index) => {
-            const isCurrentPlayer =
-              entry.name.trim().toLowerCase() ===
-              playerName.trim().toLowerCase();
-            const isFirstPlace = index === 0;
+          <h2
+            style={{
+              fontSize: "1.5rem",
+              marginBottom: "20px",
+              color: "#a78bfa", // Purple color instead of yellow
+              textAlign: "center",
+            }}
+          >
+            🏆 Leaderboard
+          </h2>
+          {isLoadingLeaderboard ? (
+            <LoadingBird />
+          ) : leaderboard.length === 0 ? (
+            <p style={{ textAlign: "center", color: "#9ca3af" }}>
+              No scores yet!
+            </p>
+          ) : (
+            <div style={{ transition: "opacity 0.2s ease" }}>
+              {leaderboard.map((entry, index) => {
+                const isCurrentPlayer =
+                  entry.name.trim().toLowerCase() ===
+                  playerName.trim().toLowerCase();
+                const isFirstPlace = index === 0;
 
-            return (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: isFirstPlace
-                    ? "rgba(255, 255, 255, 0.25)" // Prominent glass effect for first place
-                    : isCurrentPlayer
-                    ? "rgba(255, 255, 255, 0.15)" // Glass effect for current player
-                    : "rgba(55, 65, 81, 0.6)",
-                  color: "#fff",
-                  padding: "12px",
-                  borderRadius: "12px",
-                  marginBottom: "8px",
-                  border: isFirstPlace
-                    ? "1px solid rgba(255, 255, 255, 0.3)" // Glass border
-                    : isCurrentPlayer
-                    ? "1px solid rgba(255, 255, 255, 0.2)" // Glass border for current player
-                    : "1px solid rgba(75, 85, 99, 0.6)",
-                  backdropFilter: isFirstPlace
-                    ? "blur(15px) saturate(1.8)" // Enhanced glass effect
-                    : isCurrentPlayer
-                    ? "blur(12px) saturate(1.5)" // Glass effect for current player
-                    : "blur(5px)",
-                  boxShadow: isFirstPlace
-                    ? "0 8px 32px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)" // Glass shadow with inner light
-                    : isCurrentPlayer
-                    ? "0 4px 16px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1)" // Glass shadow for current player
-                    : "0 2px 8px rgba(0, 0, 0, 0.3)",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span
+                return (
+                  <div
+                    key={index}
                     style={{
-                      fontWeight: "bold",
-                      color: isFirstPlace
-                        ? "#ffffff"
+                      backgroundColor: isFirstPlace
+                        ? "rgba(255, 255, 255, 0.25)" // Prominent glass effect for first place
                         : isCurrentPlayer
-                        ? "rgba(255, 255, 255, 0.95)" // Slight transparency for glass effect
-                        : "#ffffff",
-                      textShadow:
-                        isFirstPlace || isCurrentPlayer
-                          ? "0 1px 2px rgba(0, 0, 0, 0.3)" // Subtle text shadow for glass effect
-                          : undefined,
+                        ? "rgba(255, 255, 255, 0.15)" // Glass effect for current player
+                        : "rgba(55, 65, 81, 0.6)",
+                      color: "#fff",
+                      padding: "12px",
+                      borderRadius: "12px",
+                      marginBottom: "8px",
+                      border: isFirstPlace
+                        ? "1px solid rgba(255, 255, 255, 0.3)" // Glass border
+                        : isCurrentPlayer
+                        ? "1px solid rgba(255, 255, 255, 0.2)" // Glass border for current player
+                        : "1px solid rgba(75, 85, 99, 0.6)",
+                      backdropFilter: isFirstPlace
+                        ? "blur(15px) saturate(1.8)" // Enhanced glass effect
+                        : isCurrentPlayer
+                        ? "blur(12px) saturate(1.5)" // Glass effect for current player
+                        : "blur(5px)",
+                      boxShadow: isFirstPlace
+                        ? "0 8px 32px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)" // Glass shadow with inner light
+                        : isCurrentPlayer
+                        ? "0 4px 16px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1)" // Glass shadow for current player
+                        : "0 2px 8px rgba(0, 0, 0, 0.3)",
                     }}
                   >
-                    #{index + 1} {entry.name}
-                  </span>
-                  <span style={{ fontSize: "0.9rem" }}>
-                    {formatTime(entry.score)}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    fontSize: "0.8rem",
-                    marginTop: "4px",
-                    opacity: 0.8,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "4px",
-                  }}
-                >
-                  <img
-                    src={process.env.PUBLIC_URL + "/dappies.svg"}
-                    alt="Dappies"
-                    style={{ width: "12px", height: "12px" }}
-                  />
-                  {entry.dappies} •{" "}
-                  {entry.created_at
-                    ? new Date(entry.created_at).toLocaleDateString()
-                    : "Today"}
-                </div>
-              </div>
-            );
-          })}
-          </div>
-        )}
-      </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontWeight: "bold",
+                          color: isFirstPlace
+                            ? "#ffffff"
+                            : isCurrentPlayer
+                            ? "rgba(255, 255, 255, 0.95)" // Slight transparency for glass effect
+                            : "#ffffff",
+                          textShadow:
+                            isFirstPlace || isCurrentPlayer
+                              ? "0 1px 2px rgba(0, 0, 0, 0.3)" // Subtle text shadow for glass effect
+                              : undefined,
+                        }}
+                      >
+                        #{index + 1} {entry.name}
+                      </span>
+                      <span style={{ fontSize: "0.9rem" }}>
+                        {formatTime(entry.score)}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "0.8rem",
+                        marginTop: "4px",
+                        opacity: 0.8,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
+                    >
+                      <img
+                        src={process.env.PUBLIC_URL + "/dappies.svg"}
+                        alt="Dappies"
+                        style={{ width: "12px", height: "12px" }}
+                      />
+                      {entry.dappies} •{" "}
+                      {entry.created_at
+                        ? new Date(entry.created_at).toLocaleDateString()
+                        : "Today"}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       )}
 
       {/* Mobile Leaderboard Button */}
@@ -930,9 +930,7 @@ export default function App() {
             <img
               src={process.env.PUBLIC_URL + "/dappies.svg"}
               alt="Dappies"
-              style={{ width: "24px", height: "24px",
-                
-                }}
+              style={{ width: "24px", height: "24px" }}
             />
             {coinsCollected}
           </div>
@@ -1285,7 +1283,7 @@ export default function App() {
                 ✕ Close
               </button>
             </div>
-            
+
             {isLoadingLeaderboard ? (
               <LoadingBird />
             ) : leaderboard.length === 0 ? (
@@ -1295,82 +1293,82 @@ export default function App() {
             ) : (
               <div style={{ transition: "opacity 0.2s ease" }}>
                 {leaderboard.map((entry, index) => {
-                const isCurrentPlayer =
-                  entry.name.trim().toLowerCase() ===
-                  playerName.trim().toLowerCase();
-                const isFirstPlace = index === 0;
+                  const isCurrentPlayer =
+                    entry.name.trim().toLowerCase() ===
+                    playerName.trim().toLowerCase();
+                  const isFirstPlace = index === 0;
 
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      backgroundColor: isFirstPlace
-                        ? "rgba(255, 255, 255, 0.25)"
-                        : isCurrentPlayer
-                        ? "rgba(255, 255, 255, 0.15)"
-                        : "rgba(55, 65, 81, 0.6)",
-                      color: "#fff",
-                      padding: "12px",
-                      borderRadius: "12px",
-                      marginBottom: "8px",
-                      border: isFirstPlace
-                        ? "1px solid rgba(255, 255, 255, 0.3)"
-                        : isCurrentPlayer
-                        ? "1px solid rgba(255, 255, 255, 0.2)"
-                        : "1px solid rgba(75, 85, 99, 0.6)",
-                      backdropFilter: isFirstPlace
-                        ? "blur(15px) saturate(1.8)"
-                        : isCurrentPlayer
-                        ? "blur(12px) saturate(1.5)"
-                        : "blur(5px)",
-                    }}
-                  >
+                  return (
                     <div
+                      key={index}
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
+                        backgroundColor: isFirstPlace
+                          ? "rgba(255, 255, 255, 0.25)"
+                          : isCurrentPlayer
+                          ? "rgba(255, 255, 255, 0.15)"
+                          : "rgba(55, 65, 81, 0.6)",
+                        color: "#fff",
+                        padding: "12px",
+                        borderRadius: "12px",
+                        marginBottom: "8px",
+                        border: isFirstPlace
+                          ? "1px solid rgba(255, 255, 255, 0.3)"
+                          : isCurrentPlayer
+                          ? "1px solid rgba(255, 255, 255, 0.2)"
+                          : "1px solid rgba(75, 85, 99, 0.6)",
+                        backdropFilter: isFirstPlace
+                          ? "blur(15px) saturate(1.8)"
+                          : isCurrentPlayer
+                          ? "blur(12px) saturate(1.5)"
+                          : "blur(5px)",
                       }}
                     >
-                      <span
+                      <div
                         style={{
-                          fontWeight: "bold",
-                          color: isFirstPlace
-                            ? "#ffffff"
-                            : isCurrentPlayer
-                            ? "rgba(255, 255, 255, 0.95)"
-                            : "#ffffff",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
                         }}
                       >
-                        #{index + 1} {entry.name}
-                      </span>
-                      <span style={{ fontSize: "0.9rem" }}>
-                        {formatTime(entry.score)}
-                      </span>
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: isFirstPlace
+                              ? "#ffffff"
+                              : isCurrentPlayer
+                              ? "rgba(255, 255, 255, 0.95)"
+                              : "#ffffff",
+                          }}
+                        >
+                          #{index + 1} {entry.name}
+                        </span>
+                        <span style={{ fontSize: "0.9rem" }}>
+                          {formatTime(entry.score)}
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "0.8rem",
+                          marginTop: "4px",
+                          opacity: 0.8,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                      >
+                        <img
+                          src={process.env.PUBLIC_URL + "/dappies.svg"}
+                          alt="Dappies"
+                          style={{ width: "12px", height: "12px" }}
+                        />
+                        {entry.dappies} •{" "}
+                        {entry.created_at
+                          ? new Date(entry.created_at).toLocaleDateString()
+                          : "Today"}
+                      </div>
                     </div>
-                    <div
-                      style={{
-                        fontSize: "0.8rem",
-                        marginTop: "4px",
-                        opacity: 0.8,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                      }}
-                    >
-                      <img
-                        src={process.env.PUBLIC_URL + "/dappies.svg"}
-                        alt="Dappies"
-                        style={{ width: "12px", height: "12px" }}
-                      />
-                      {entry.dappies} •{" "}
-                      {entry.created_at
-                        ? new Date(entry.created_at).toLocaleDateString()
-                        : "Today"}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
               </div>
             )}
           </div>
