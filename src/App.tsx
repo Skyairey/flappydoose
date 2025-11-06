@@ -47,7 +47,7 @@ const Bird: React.FC<BirdProps> = (
   { top, rotation } // <-- Added 'rotation' prop
 ) => (
   <img
-    src={process.env.PUBLIC_URL + "/bird_no_bg.svg"}
+    src={process.env.PUBLIC_URL + "/Doose.svg"}
     alt="Bird"
     draggable={false}
     style={{
