@@ -66,3 +66,13 @@
     opacity: 0.5; 
   }
 }
+
+/* Seaweed sway animation used by the sea-themed obstacles */
+@keyframes seaSway {
+  0% { transform: rotate(-6deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(6deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(-6deg); }
+}
+

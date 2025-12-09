@@ -47,7 +47,7 @@ const Bird: React.FC<BirdProps> = (
   { top, rotation } // <-- Added 'rotation' prop
 ) => (
   <img
-    src={process.env.PUBLIC_URL + "/doose.svg"}
+    src={process.env.PUBLIC_URL + "/redacted.png"}
     alt="Bird"
     draggable={false}
     style={{
@@ -65,7 +65,8 @@ const Bird: React.FC<BirdProps> = (
   />
 );
 
-// --- Obstacle Component ---
+// --- Obstacle Component (Pipe) ---
+// Classic rectangular obstacle (pipe) recolored for ocean theme
 const Obstacle: React.FC<ObstacleProps> = ({ x, height, isTop }) => (
   <div
     style={{
@@ -77,19 +78,19 @@ const Obstacle: React.FC<ObstacleProps> = ({ x, height, isTop }) => (
       // Add a "cap" to the pipes
       display: "flex",
       flexDirection: isTop ? "column-reverse" : "column",
-      // Tailwind styles converted:
-      backgroundColor: "#16a34a", // bg-green-600
-      border: "4px solid #14532d", // border-4 border-green-800
-      borderRadius: "6px", // rounded-md
+      // Ocean-blue pipe colors:
+      backgroundColor: "#0369a1", // blue-700
+      border: "4px solid #075985", // darker blue border
+      borderRadius: "6px",
     }}
   >
     <div
       style={{
-        width: "100%", // w-full
-        height: "24px", // h-6
-        backgroundColor: "#15803d", // bg-green-700
-        borderTop: "4px solid #14532d", // border-y-4 border-green-800
-        borderBottom: "4px solid #14532d",
+        width: "100%",
+        height: "24px",
+        backgroundColor: "#0284c7", // blue-500 cap
+        borderTop: "4px solid #075985",
+        borderBottom: "4px solid #075985",
       }}
     ></div>
   </div>
@@ -101,8 +102,8 @@ const CoinComponent: React.FC<CoinProps> = ({ x, y, collected }) => {
 
   return (
     <img
-      src={process.env.PUBLIC_URL + "/dappies.svg"}
-      alt="Dappies"
+      src={process.env.PUBLIC_URL + "/reusde.png"}
+      alt="reusde"
       style={{
         position: "absolute",
         width: `${COIN_SIZE}px`,
@@ -134,8 +135,8 @@ const LoadingBird: React.FC = () => (
       }}
     >
       <img
-        src={process.env.PUBLIC_URL + "/doose.svg"}
-        alt="Loading Bird"
+        src={process.env.PUBLIC_URL + "/redacted.png"}
+        alt="Loading Redacted"
         draggable={false}
         style={{
           width: "40px",
@@ -633,27 +634,12 @@ export default function App() {
       style={{
         display: "flex",
         minHeight: "100vh",
-        // Starry night background for the entire page
-        backgroundImage: `
-          radial-gradient(2px 2px at 10% 20%, #ffffff, transparent),
-          radial-gradient(1px 1px at 15% 40%, #ffffff, transparent),
-          radial-gradient(2px 2px at 25% 10%, #ffffff, transparent),
-          radial-gradient(1px 1px at 35% 60%, #ffffff, transparent),
-          radial-gradient(1px 1px at 45% 25%, #ffffff, transparent),
-          radial-gradient(2px 2px at 55% 70%, #ffffff, transparent),
-          radial-gradient(1px 1px at 65% 15%, #ffffff, transparent),
-          radial-gradient(1px 1px at 75% 45%, #ffffff, transparent),
-          radial-gradient(2px 2px at 85% 80%, #ffffff, transparent),
-          radial-gradient(1px 1px at 95% 35%, #ffffff, transparent),
-          radial-gradient(1px 1px at 5% 75%, #ffffff, transparent),
-          radial-gradient(2px 2px at 20% 85%, #ffffff, transparent),
-          radial-gradient(1px 1px at 40% 90%, #ffffff, transparent),
-          radial-gradient(1px 1px at 60% 5%, #ffffff, transparent),
-          radial-gradient(2px 2px at 80% 50%, #ffffff, transparent),
-          radial-gradient(1px 1px at 90% 95%, #ffffff, transparent),
-          linear-gradient(to bottom, #0f172a, #1e293b 40%, #374151 80%, #4b5563)
-        `,
-        backgroundColor: "#0c1017", // Very dark night background fallback
+        // Use deepsea.jpg as the main page background with a subtle overlay
+        backgroundImage: `linear-gradient(rgba(4,20,30,0.25), rgba(4,20,30,0.35)), url(${process.env.PUBLIC_URL + "/deepsea.jpg"})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#04292e", // Deep sea fallback
         fontFamily: "sans-serif",
         position: "relative",
       }}
@@ -668,35 +654,27 @@ export default function App() {
             transform: "translateY(-50%)",
             width: "250px",
             height: `${GAME_HEIGHT}px`,
-            // Translucent background with stars
-            backgroundImage: `
-              radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
-              radial-gradient(1px 1px at 60px 80px, rgba(255, 255, 255, 0.6), transparent),
-              radial-gradient(1px 1px at 120px 40px, rgba(255, 255, 255, 0.7), transparent),
-              radial-gradient(1px 1px at 180px 90px, rgba(255, 255, 255, 0.5), transparent),
-              radial-gradient(1px 1px at 220px 20px, rgba(255, 255, 255, 0.8), transparent),
-              radial-gradient(1px 1px at 40px 140px, rgba(255, 255, 255, 0.6), transparent),
-              radial-gradient(1px 1px at 100px 180px, rgba(255, 255, 255, 0.7), transparent),
-              radial-gradient(1px 1px at 160px 220px, rgba(255, 255, 255, 0.5), transparent),
-              radial-gradient(1px 1px at 200px 160px, rgba(255, 255, 255, 0.8), transparent),
-              linear-gradient(to bottom, rgba(31, 41, 55, 0.7), rgba(55, 65, 81, 0.8))
-            `,
-            backgroundColor: "rgba(31, 41, 55, 0.6)", // Translucent dark background
+            // Ocean background using deepsea.jpg with a subtle dark overlay
+            backgroundImage: `linear-gradient(rgba(2,12,20,0.45), rgba(2,12,20,0.55)), url(${process.env.PUBLIC_URL + "/deepsea.jpg"})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "rgba(2,12,20,0.6)", // deep ocean fallback
             borderRadius: "12px",
-            backdropFilter: "blur(10px)",
+            backdropFilter: "blur(8px)",
             padding: "20px",
             color: "white",
             overflow: "auto",
             zIndex: 10,
             boxShadow:
-              "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
+              "0 10px 40px rgba(2,12,20,0.6), inset 0 1px 1px rgba(255, 255, 255, 0.03)",
           }}
         >
           <h2
             style={{
               fontSize: "1.5rem",
               marginBottom: "20px",
-              color: "#a78bfa", // Purple color instead of yellow
+              color: "#60a5fa", // Ocean blue header
               textAlign: "center",
             }}
           >
@@ -721,28 +699,28 @@ export default function App() {
                     key={index}
                     style={{
                       backgroundColor: isFirstPlace
-                        ? "rgba(255, 255, 255, 0.25)" // Prominent glass effect for first place
+                        ? "rgba(8,145,178,0.16)" // Subtle ocean teal for first place
                         : isCurrentPlayer
-                        ? "rgba(255, 255, 255, 0.15)" // Glass effect for current player
-                        : "rgba(55, 65, 81, 0.6)",
+                        ? "rgba(8,145,178,0.10)" // Slight ocean tint for current player
+                        : "rgba(31,41,55,0.6)",
                       color: "#fff",
                       padding: "12px",
                       borderRadius: "12px",
                       marginBottom: "8px",
                       border: isFirstPlace
-                        ? "1px solid rgba(255, 255, 255, 0.3)" // Glass border
+                        ? "1px solid rgba(96,165,250,0.22)" // Blue border for first place
                         : isCurrentPlayer
-                        ? "1px solid rgba(255, 255, 255, 0.2)" // Glass border for current player
-                        : "1px solid rgba(75, 85, 99, 0.6)",
+                        ? "1px solid rgba(96,165,250,0.16)" // Blue border for current player
+                        : "1px solid rgba(75,85,99,0.6)",
                       backdropFilter: isFirstPlace
-                        ? "blur(15px) saturate(1.8)" // Enhanced glass effect
+                        ? "blur(12px) saturate(1.6)" // Slightly toned glass effect
                         : isCurrentPlayer
-                        ? "blur(12px) saturate(1.5)" // Glass effect for current player
+                        ? "blur(10px) saturate(1.3)"
                         : "blur(5px)",
                       boxShadow: isFirstPlace
-                        ? "0 8px 32px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)" // Glass shadow with inner light
+                        ? "0 8px 28px rgba(96,165,250,0.06), inset 0 1px 0 rgba(255, 255, 255, 0.06)"
                         : isCurrentPlayer
-                        ? "0 4px 16px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1)" // Glass shadow for current player
+                        ? "0 4px 16px rgba(96,165,250,0.04), inset 0 1px 0 rgba(255, 255, 255, 0.04)"
                         : "0 2px 8px rgba(0, 0, 0, 0.3)",
                     }}
                   >
@@ -756,11 +734,11 @@ export default function App() {
                       <span
                         style={{
                           fontWeight: "bold",
-                          color: isFirstPlace
-                            ? "#ffffff"
-                            : isCurrentPlayer
-                            ? "rgba(255, 255, 255, 0.95)" // Slight transparency for glass effect
-                            : "#ffffff",
+                            color: isFirstPlace
+                              ? "#ffffff"
+                              : isCurrentPlayer
+                              ? "rgba(255, 255, 255, 0.95)"
+                              : "#ffffff",
                           textShadow:
                             isFirstPlace || isCurrentPlayer
                               ? "0 1px 2px rgba(0, 0, 0, 0.3)" // Subtle text shadow for glass effect
@@ -784,8 +762,8 @@ export default function App() {
                       }}
                     >
                       <img
-                        src={process.env.PUBLIC_URL + "/dappies.svg"}
-                        alt="Dappies"
+                        src={process.env.PUBLIC_URL + "/reusde.png"}
+                        alt="reusde"
                         style={{ width: "12px", height: "12px" }}
                       />
                       {entry.dappies} •{" "}
@@ -805,11 +783,11 @@ export default function App() {
       {isMobile && (
         <button
           onClick={() => setShowLeaderboardModal(true)}
-          style={{
+            style={{
             position: "fixed",
             top: "20px",
             right: "20px",
-            backgroundColor: "rgba(167, 139, 250, 0.9)", // Purple with transparency
+              backgroundColor: "rgba(14,165,233,0.94)", // Ocean blue button
             color: "white",
             border: "none",
             borderRadius: "12px",
@@ -844,35 +822,12 @@ export default function App() {
           style={{
             width: `${GAME_WIDTH}px`,
             height: `${GAME_HEIGHT}px`,
-            // Night time background with stars
-            backgroundImage: `
-            radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
-            radial-gradient(2px 2px at 40px 70px, #ffffff, transparent),
-            radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
-            radial-gradient(1px 1px at 130px 80px, #ffffff, transparent),
-            radial-gradient(2px 2px at 160px 30px, #ffffff, transparent),
-            radial-gradient(1px 1px at 200px 60px, #ffffff, transparent),
-            radial-gradient(2px 2px at 240px 20px, #ffffff, transparent),
-            radial-gradient(1px 1px at 280px 90px, #ffffff, transparent),
-            radial-gradient(1px 1px at 320px 40px, #ffffff, transparent),
-            radial-gradient(2px 2px at 360px 70px, #ffffff, transparent),
-            radial-gradient(1px 1px at 400px 30px, #ffffff, transparent),
-            radial-gradient(1px 1px at 440px 80px, #ffffff, transparent),
-            radial-gradient(1px 1px at 480px 50px, #ffffff, transparent),
-            radial-gradient(2px 2px at 60px 120px, #ffffff, transparent),
-            radial-gradient(1px 1px at 100px 150px, #ffffff, transparent),
-            radial-gradient(1px 1px at 140px 180px, #ffffff, transparent),
-            radial-gradient(2px 2px at 180px 140px, #ffffff, transparent),
-            radial-gradient(1px 1px at 220px 160px, #ffffff, transparent),
-            radial-gradient(1px 1px at 260px 200px, #ffffff, transparent),
-            radial-gradient(2px 2px at 300px 170px, #ffffff, transparent),
-            radial-gradient(1px 1px at 340px 190px, #ffffff, transparent),
-            radial-gradient(1px 1px at 380px 220px, #ffffff, transparent),
-            radial-gradient(1px 1px at 420px 180px, #ffffff, transparent),
-            radial-gradient(2px 2px at 460px 210px, #ffffff, transparent),
-            linear-gradient(to bottom, #0f172a, #1e293b 40%, #374151 80%, #4b5563)
-          `,
-            backgroundColor: "#0f172a", // Very dark blue-gray fallback
+            // Use deepsea.jpg from public as the card background with a subtle overlay
+            backgroundImage: `linear-gradient(rgba(4, 20, 30, 0.25), rgba(4, 20, 30, 0.35)), url(${process.env.PUBLIC_URL + "/deepsea.jpg"})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "#04292e", // Deep sea fallback
             borderRadius: "8px", // rounded-lg
             boxShadow:
               "0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)", // Darker shadow for night
@@ -921,7 +876,7 @@ export default function App() {
               position: "absolute",
               top: "16px", // top-4
               right: "16px", // right-4
-              color: "#ffd700", // Gold color
+              color: "#0ad3edff", // Gold color
               fontSize: "1.5rem", // text-2xl
               fontWeight: "bold",
               textShadow: "2px 2px 0 rgba(0, 0, 0, 0.5)",
@@ -931,8 +886,8 @@ export default function App() {
             }}
           >
             <img
-              src={process.env.PUBLIC_URL + "/dappies.svg"}
-              alt="Dappies"
+              src={process.env.PUBLIC_URL + "/reusde.png"}
+              alt="reusde"
               style={{ width: "24px", height: "24px" }}
             />
             {coinsCollected}
@@ -1171,8 +1126,8 @@ export default function App() {
                 }}
               >
                 <img
-                  src={process.env.PUBLIC_URL + "/dappies.svg"}
-                  alt="Dappies"
+                  src={process.env.PUBLIC_URL + "/reusde.png"}
+                  alt="reusde"
                   style={{ width: "24px", height: "24px" }}
                 />
                 {coinsCollected}
@@ -1235,15 +1190,12 @@ export default function App() {
               maxWidth: "400px",
               maxHeight: "70vh",
               // Translucent background with stars
-              backgroundImage: `
-                radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
-                radial-gradient(1px 1px at 60px 80px, rgba(255, 255, 255, 0.6), transparent),
-                radial-gradient(1px 1px at 120px 40px, rgba(255, 255, 255, 0.7), transparent),
-                radial-gradient(1px 1px at 180px 90px, rgba(255, 255, 255, 0.5), transparent),
-                radial-gradient(1px 1px at 220px 20px, rgba(255, 255, 255, 0.8), transparent),
-                linear-gradient(to bottom, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.9))
-              `,
-              backgroundColor: "rgba(31, 41, 55, 0.9)",
+              // Ocean background using deepsea.jpg with a subtle overlay
+              backgroundImage: `linear-gradient(rgba(2,12,20,0.55), rgba(2,12,20,0.7)), url(${process.env.PUBLIC_URL + "/deepsea.jpg"})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: "rgba(2,12,20,0.9)",
               borderRadius: "16px",
               backdropFilter: "blur(15px)",
               padding: "24px",
@@ -1264,7 +1216,7 @@ export default function App() {
               <h2
                 style={{
                   fontSize: "1.5rem",
-                  color: "#a78bfa",
+                  color: "#60a5fa",
                   margin: 0,
                 }}
               >
@@ -1305,26 +1257,26 @@ export default function App() {
                     <div
                       key={index}
                       style={{
-                        backgroundColor: isFirstPlace
-                          ? "rgba(255, 255, 255, 0.25)"
-                          : isCurrentPlayer
-                          ? "rgba(255, 255, 255, 0.15)"
-                          : "rgba(55, 65, 81, 0.6)",
-                        color: "#fff",
-                        padding: "12px",
-                        borderRadius: "12px",
-                        marginBottom: "8px",
-                        border: isFirstPlace
-                          ? "1px solid rgba(255, 255, 255, 0.3)"
-                          : isCurrentPlayer
-                          ? "1px solid rgba(255, 255, 255, 0.2)"
-                          : "1px solid rgba(75, 85, 99, 0.6)",
-                        backdropFilter: isFirstPlace
-                          ? "blur(15px) saturate(1.8)"
-                          : isCurrentPlayer
-                          ? "blur(12px) saturate(1.5)"
-                          : "blur(5px)",
-                      }}
+                          backgroundColor: isFirstPlace
+                            ? "rgba(8,145,178,0.16)"
+                            : isCurrentPlayer
+                            ? "rgba(8,145,178,0.10)"
+                            : "rgba(31,41,55,0.6)",
+                          color: "#fff",
+                          padding: "12px",
+                          borderRadius: "12px",
+                          marginBottom: "8px",
+                          border: isFirstPlace
+                            ? "1px solid rgba(96,165,250,0.22)"
+                            : isCurrentPlayer
+                            ? "1px solid rgba(96,165,250,0.16)"
+                            : "1px solid rgba(75, 85, 99, 0.6)",
+                          backdropFilter: isFirstPlace
+                            ? "blur(12px) saturate(1.6)"
+                            : isCurrentPlayer
+                            ? "blur(10px) saturate(1.3)"
+                            : "blur(5px)",
+                        }}
                     >
                       <div
                         style={{
@@ -1360,8 +1312,8 @@ export default function App() {
                         }}
                       >
                         <img
-                          src={process.env.PUBLIC_URL + "/dappies.svg"}
-                          alt="Dappies"
+                          src={process.env.PUBLIC_URL + "/reusde.png"}
+                          alt="reusde"
                           style={{ width: "12px", height: "12px" }}
                         />
                         {entry.dappies} •{" "}
